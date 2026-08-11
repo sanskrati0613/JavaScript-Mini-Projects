@@ -7,6 +7,7 @@ const fromCurr = document.querySelector(".from select");
 const toCurr = document.querySelector(".to select");
 
 const msg = document.querySelector(".msg");
+const exchange = document.querySelector(".exchange");
 
 
 for(let select of dropdown){
@@ -56,9 +57,32 @@ const updateExchangeRate = async () => {
     msg.innerText = `${amtVal} ${fromCurr.value} = ${finalAmount} ${toCurr.value}`;
 };
 
+const exchangeCurrencies = () => {
+    let temp = fromCurr.value;
+    fromCurr.value=toCurr.value;
+    toCurr.value=temp;
+
+    updateFlag(fromCurr);
+    updateFlag(toCurr);
+};
+
 
 btn.addEventListener("click", (evt) => {
     evt.preventDefault();
+    updateExchangeRate();
+});
+
+exchange.addEventListener("click", (evt) => {
+    evt.preventDefault();
+    exchangeCurrencies();
+    updateExchangeRate();
+});
+
+fromCurr.addEventListener("change", () =>{
+    updateExchangeRate();
+});
+
+toCurr.addEventListener("change", () =>{
     updateExchangeRate();
 });
 
